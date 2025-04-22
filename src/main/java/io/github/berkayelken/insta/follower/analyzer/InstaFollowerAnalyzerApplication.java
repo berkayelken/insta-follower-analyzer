@@ -1,4 +1,4 @@
-package com.example.instafolloweranalyzer;
+package io.github.berkayelken.insta.follower.analyzer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
