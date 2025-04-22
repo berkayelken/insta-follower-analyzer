@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -13,10 +15,10 @@ import java.util.Objects;
 @ToString
 public class RelatedUser {
 	@JsonProperty ("string_list_data")
-	private UserInfo userInfo;
+	private List<UserInfo> userInfo;
 
 	public static boolean nonNull(RelatedUser relatedUser) {
-		return relatedUser != null && relatedUser.userInfo != null && StringUtils.hasText(relatedUser.userInfo.getValue());
+		return relatedUser != null && !CollectionUtils.isEmpty(relatedUser.userInfo) && StringUtils.hasText(relatedUser.userInfo.getFirst().getValue());
 	}
 
 	@Override
@@ -25,10 +27,11 @@ public class RelatedUser {
 			return true;
 		if (o == null || getClass() != o.getClass())
 			return false;
-		if (userInfo == null)
-			return false;
+
 		RelatedUser that = (RelatedUser) o;
-		return userInfo.equals(that.userInfo);
+		if (CollectionUtils.isEmpty(userInfo) || CollectionUtils.isEmpty(that.userInfo))
+			return false;
+		return userInfo.getFirst().equals(that.userInfo.getFirst());
 	}
 
 	@Override

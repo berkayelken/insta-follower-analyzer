@@ -1,3 +1,6 @@
 spring:
   application:
     name: "insta-follower-analyzer"
+
+server:
+  port: 9876
